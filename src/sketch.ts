@@ -1,33 +1,33 @@
-export class Point {
-	x: number;
-	y: number;
+import Point from "./Point";
+import LineSegment from "./LineSegment";
+import BruteCollinearPoints from "./BruteCollinearPoints";
+import FastCollinearPoints from "./FastCollinearPoints";
+import readPointsFromFile from "./ReadFile";
 
-	constructor(x: number, y: number) {
-		this.x = x;
-		this.y = y;
-	}
+const points: Point[] = readPointsFromFile("./test data/input8.txt");
 
-	draw(): void {
-		p.stroke("black");
-		p.strokeWeight(8);
-		p.point(this.x, this.y);
-	}
+let bruteCollinearPoints: BruteCollinearPoints;
+let fastCollinearPoints: FastCollinearPoints;
 
-	drawTo(that: Point) {
-		p.stroke("black");
-		p.strokeWeight(2);
-		p.line(this.x, this.y, that.x, that.y);
-	}
+function setup() {
+	createCanvas(800, 600);
+	bruteCollinearPoints = new BruteCollinearPoints(points);
+	fastCollinearPoints = new FastCollinearPoints(points);
 
-	slopeTo(that: Point): number {
-		if (this.x === that.x && this.y === that.y) {
-			return -Infinity;
-		} else if (this.x === that.x) {
-			return Infinity;
-		} else if (this.y === that.y) {
-			return 0;
-		} else {
-			return (that.y - this.y) / (that.x - this.x);
-		}
-	}
+	console.log("Brute Force Solution:");
+	bruteCollinearPoints.segments().forEach((segment) => {
+		console.log(segment);
+		segment.draw();
+	});
+
+	console.log("Fast Solution:");
+	fastCollinearPoints.segments().forEach((segment) => {
+		console.log(segment);
+		segment.draw();
+	});
+}
+
+function draw() {
+	background(255);
+	points.forEach((point) => point.draw());
 }

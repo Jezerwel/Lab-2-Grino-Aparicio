@@ -1,4 +1,6 @@
-export class LineSegment {
+import Point from "./Point";
+
+export default class LineSegment {
 	p: Point;
 	q: Point;
 
@@ -8,8 +10,8 @@ export class LineSegment {
 	}
 
 	draw(): void {
-		p.stroke("black");
-		p.strokeWeight(2);
-		p.line(this.p.x, this.p.y, this.q.x, this.q.y);
+		stroke("black");
+		strokeWeight(2);
+		line(this.p.x, this.p.y, this.q.x, this.q.y);
 	}
 }

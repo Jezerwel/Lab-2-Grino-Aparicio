@@ -1,9 +1,18 @@
-export class BruteCollinearPoints {
+import Point from "./Point";
+import LineSegment from "./LineSegment";
+
+export default class BruteCollinearPoints {
 	points: Point[];
-	lineSegments: LineSegment[] = [];
+	lineSegments: LineSegment[];
 
 	constructor(points: Point[]) {
-		this.points = points;
+		if (!points || points.length < 4) {
+			throw new Error("At least 4 points are required");
+		}
+
+		this.points = points.slice();
+		this.lineSegments = [];
+
 		this.findCollinearPoints();
 	}
 
@@ -15,12 +24,11 @@ export class BruteCollinearPoints {
 		return this.lineSegments;
 	}
 
-	private findCollinearPoints() {
-		const n = this.points.length;
-		for (let i = 0; i < n; i++) {
-			for (let j = i + 1; j < n; j++) {
-				for (let k = j + 1; k < n; k++) {
-					for (let l = k + 1; l < n; l++) {
+	findCollinearPoints(): void {
+		for (let i = 0; i < this.points.length - 3; i++) {
+			for (let j = i + 1; j < this.points.length - 2; j++) {
+				for (let k = j + 1; k < this.points.length - 1; k++) {
+					for (let l = k + 1; l < this.points.length; l++) {
 						const p = this.points[i];
 						const q = this.points[j];
 						const r = this.points[k];
