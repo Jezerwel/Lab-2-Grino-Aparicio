@@ -3,7 +3,7 @@ import LineSegment from "./LineSegment";
 
 class BruteCollinearPoints {
 	points: Point[];
-	lineSegments: LineSegment[];
+	lineSegments: Set<LineSegment>;
 
 	constructor(points: Point[]) {
 		if (!points || points.length < 4) {
@@ -11,20 +11,20 @@ class BruteCollinearPoints {
 		}
 
 		this.points = points.slice();
-		this.lineSegments = [];
+		this.lineSegments = new Set();
 
 		this.findCollinearPoints();
 	}
 
 	numberOfSegments(): number {
-		return this.lineSegments.length;
+		return this.lineSegments.size;
 	}
 
 	segments(): LineSegment[] {
-		return this.lineSegments;
+		return Array.from(this.lineSegments);
 	}
 
-	private findCollinearPoints(): void {
+	findCollinearPoints(): void {
 		for (let i = 0; i < this.points.length - 3; i++) {
 			for (let j = i + 1; j < this.points.length - 2; j++) {
 				for (let k = j + 1; k < this.points.length - 1; k++) {
@@ -38,7 +38,7 @@ class BruteCollinearPoints {
 							p.slopeTo(q) === p.slopeTo(r) &&
 							p.slopeTo(r) === p.slopeTo(s)
 						) {
-							this.lineSegments.push(new LineSegment(p, s));
+							this.lineSegments.add(new LineSegment(p, s));
 						}
 					}
 				}

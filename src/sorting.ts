@@ -28,7 +28,6 @@ function merge(left: Point[], right: Point[], origin: Point): Point[] {
 			result.push(right[rightIndex]);
 			rightIndex++;
 		} else {
-			// Handle collinear points
 			const sameSlope = [left[leftIndex], right[rightIndex]];
 			while (
 				leftIndex < left.length &&

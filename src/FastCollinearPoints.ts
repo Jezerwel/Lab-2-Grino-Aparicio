@@ -4,7 +4,7 @@ import { mergeSort } from "./sorting";
 
 class FastCollinearPoints {
 	points: Point[];
-	lineSegments: LineSegment[];
+	lineSegments: Set<LineSegment>;
 
 	constructor(points: Point[]) {
 		if (!points || points.length < 4) {
@@ -12,20 +12,20 @@ class FastCollinearPoints {
 		}
 
 		this.points = points.slice();
-		this.lineSegments = [];
+		this.lineSegments = new Set();
 
 		this.findCollinearPoints();
 	}
 
 	numberOfSegments(): number {
-		return this.lineSegments.length;
+		return this.lineSegments.size;
 	}
 
 	segments(): LineSegment[] {
-		return this.lineSegments;
+		return Array.from(this.lineSegments);
 	}
 
-	private findCollinearPoints(): void {
+	findCollinearPoints(): void {
 		for (const p of this.points) {
 			const otherPoints = this.points.filter((q) => q !== p);
 			const sortedPoints = mergeSort(otherPoints, p);
@@ -44,7 +44,7 @@ class FastCollinearPoints {
 					end - start >= 3 &&
 					p.slopeTo(sortedPoints[start]) !== Number.NEGATIVE_INFINITY
 				) {
-					this.lineSegments.push(new LineSegment(p, sortedPoints[end - 1]));
+					this.lineSegments.add(new LineSegment(p, sortedPoints[end - 1]));
 				}
 
 				start = end;
