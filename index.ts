@@ -5,7 +5,6 @@ const height: number = 500;
 const padding: number = 50;
 
 const sketch = function (p: p5) {
-	// biome-ignore lint/complexity/useArrowFunction: <explanation>
 	p.setup = function () {
 		p.createCanvas(width, height);
 
@@ -252,7 +251,6 @@ const sketch = function (p: p5) {
 					}
 
 					if (end - start >= 3) {
-						// Add only the maximal segment for this set of collinear points
 						this.lineSegments.add(
 							new LineSegment(sortedPoints[start], sortedPoints[end - 1]),
 						);
@@ -318,7 +316,6 @@ const sketch = function (p: p5) {
 		new Point(26000, 6000),
 	];
 
-	// biome-ignore lint/complexity/useArrowFunction: <explanation>
 	p.draw = function () {
 		p.translate(padding, height - padding);
 		p.scale(1 / 100, -1 / 100);
@@ -326,18 +323,18 @@ const sketch = function (p: p5) {
 		for (const point of points) {
 			point.draw();
 		}
-		//fast collinear
-		const collinear = new FastCollinearPoints(points);
-		for (const segment of collinear.segments()) {
-			console.log(segment.toString());
-			segment.draw();
-		}
-		// //brute collinear
-		// const collinear2 = new BruteCollinearPoints(points);
-		// for (const segment of collinear2.segments()) {
+		// //fast collinear
+		// const collinear = new FastCollinearPoints(points);
+		// for (const segment of collinear.segments()) {
 		// 	console.log(segment.toString());
 		// 	segment.draw();
 		// }
+		//brute collinear
+		const collinear2 = new BruteCollinearPoints(points);
+		for (const segment of collinear2.segments()) {
+			console.log(segment.toString());
+			segment.draw();
+		}
 	};
 };
 
