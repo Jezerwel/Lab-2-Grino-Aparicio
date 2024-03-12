@@ -251,11 +251,11 @@ const sketch = function (p: p5) {
 						end++;
 					}
 
-					if (
-						end - start >= 3 &&
-						p.slopeTo(sortedPoints[start]) !== Number.NEGATIVE_INFINITY
-					) {
-						this.lineSegments.add(new LineSegment(p, sortedPoints[end - 1]));
+					if (end - start >= 3) {
+						// Add only the maximal segment for this set of collinear points
+						this.lineSegments.add(
+							new LineSegment(sortedPoints[start], sortedPoints[end - 1]),
+						);
 					}
 
 					start = end;
@@ -266,46 +266,56 @@ const sketch = function (p: p5) {
 
 	// from input40.txt
 	const points: Point[] = [
-		new Point(1000, 17000),
-		new Point(14000, 24000),
-		new Point(26000, 8000),
-		new Point(10000, 28000),
-		new Point(18000, 5000),
-		new Point(1000, 27000),
-		new Point(14000, 14000),
-		new Point(11000, 16000),
-		new Point(29000, 17000),
-		new Point(5000, 21000),
-		new Point(19000, 26000),
-		new Point(28000, 21000),
-		new Point(25000, 24000),
-		new Point(30000, 10000),
-		new Point(25000, 14000),
-		new Point(31000, 16000),
-		new Point(5000, 12000),
-		new Point(1000, 31000),
-		new Point(2000, 24000),
-		new Point(13000, 17000),
-		new Point(1000, 28000),
-		new Point(14000, 16000),
-		new Point(26000, 26000),
-		new Point(10000, 31000),
-		new Point(12000, 4000),
-		new Point(9000, 24000),
-		new Point(28000, 29000),
-		new Point(12000, 20000),
-		new Point(13000, 11000),
-		new Point(4000, 26000),
-		new Point(8000, 10000),
-		new Point(15000, 12000),
-		new Point(22000, 29000),
-		new Point(7000, 15000),
-		new Point(10000, 4000),
-		new Point(2000, 29000),
-		new Point(17000, 17000),
-		new Point(3000, 15000),
-		new Point(4000, 29000),
-		new Point(19000, 2000),
+		new Point(26000, 27000),
+		new Point(24000, 23000),
+		new Point(18000, 23000),
+		new Point(22000, 9000),
+		new Point(25000, 25000),
+		new Point(1000, 2000),
+		new Point(12000, 10000),
+		new Point(22000, 17000),
+		new Point(25000, 1000),
+		new Point(15000, 1000),
+		new Point(19000, 28000),
+		new Point(12000, 3000),
+		new Point(4000, 15000),
+		new Point(2000, 7000),
+		new Point(18000, 27000),
+		new Point(1000, 13000),
+		new Point(9000, 26000),
+		new Point(11000, 26000),
+		new Point(6000, 16000),
+		new Point(18000, 30000),
+		new Point(18000, 26000),
+		new Point(24000, 30000),
+		new Point(10000, 25000),
+		new Point(7000, 10000),
+		new Point(19000, 24000),
+		new Point(6000, 0),
+		new Point(26000, 15000),
+		new Point(1000, 23000),
+		new Point(23000, 29000),
+		new Point(15000, 7000),
+		new Point(15000, 19000),
+		new Point(17000, 31000),
+		new Point(6000, 2000),
+		new Point(17000, 16000),
+		new Point(1000, 26000),
+		new Point(11000, 19000),
+		new Point(25000, 0),
+		new Point(17000, 30000),
+		new Point(16000, 22000),
+		new Point(18000, 13000),
+		new Point(3000, 23000),
+		new Point(10000, 13000),
+		new Point(1000, 9000),
+		new Point(11000, 21000),
+		new Point(29000, 19000),
+		new Point(9000, 29000),
+		new Point(30000, 3000),
+		new Point(9000, 1000),
+		new Point(5000, 29000),
+		new Point(26000, 6000),
 	];
 
 	// biome-ignore lint/complexity/useArrowFunction: <explanation>
@@ -322,12 +332,12 @@ const sketch = function (p: p5) {
 			console.log(segment.toString());
 			segment.draw();
 		}
-		//brute collinear
-		const collinear2 = new BruteCollinearPoints(points);
-		for (const segment of collinear2.segments()) {
-			console.log(segment.toString());
-			segment.draw();
-		}
+		// //brute collinear
+		// const collinear2 = new BruteCollinearPoints(points);
+		// for (const segment of collinear2.segments()) {
+		// 	console.log(segment.toString());
+		// 	segment.draw();
+		// }
 	};
 };
 
