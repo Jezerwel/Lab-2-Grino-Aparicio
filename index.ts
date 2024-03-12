@@ -1,4 +1,5 @@
 import p5 from "p5";
+import readPointsFromFile from "./readFIle";
 
 const width: number = 800;
 const height: number = 500;
@@ -49,16 +50,12 @@ const sketch = function (p: p5) {
 		}
 
 		draw(): void {
-			// DO NOT MODIFY
-
 			p.stroke("black");
 			p.strokeWeight(800);
 			p.point(this.x, this.y);
 		}
 
 		drawTo(that: Point) {
-			// DO NOT MODIFY
-
 			p.stroke("black");
 			p.strokeWeight(200);
 			p.line(this.x, this.y, that.x, that.y);
@@ -99,23 +96,17 @@ const sketch = function (p: p5) {
 		q: Point;
 
 		constructor(p: Point, q: Point) {
-			// DO NOT MODIFY
-
 			this.p = p;
 			this.q = q;
 		}
 
 		draw(): void {
-			// DO NOT MODIFY
-
 			p.stroke("black");
 			p.strokeWeight(2);
 			p.line(this.p.x, this.p.y, this.q.x, this.q.y);
 		}
 
 		toString(): string {
-			// DO NOT MODIFY
-
 			return `${this.p} -> ${this.q}`;
 		}
 	}
@@ -205,7 +196,15 @@ const sketch = function (p: p5) {
 								p.slopeTo(q) === p.slopeTo(r) &&
 								p.slopeTo(r) === p.slopeTo(s)
 							) {
-								this.lineSegments.add(new LineSegment(p, s));
+								const minX = Math.min(p.x, q.x, r.x, s.x);
+								const maxX = Math.max(p.x, q.x, r.x, s.x);
+								const minY = Math.min(p.y, q.y, r.y, s.y);
+								const maxY = Math.max(p.y, q.y, r.y, s.y);
+
+								const start = new Point(minX, minY);
+								const end = new Point(maxX, maxY);
+
+								this.lineSegments.add(new LineSegment(start, end));
 							}
 						}
 					}
@@ -265,20 +264,48 @@ const sketch = function (p: p5) {
 		}
 	}
 
-	// Declare your point objects here~
-	// const point = new Point(19000, 10000);
-	// const point2 = new Point(10000, 10000);
-
-	// from input6.txt
+	// from input40.txt
 	const points: Point[] = [
-		new Point(10000, 0),
-		new Point(0, 10000),
-		new Point(3000, 7000),
-		new Point(7000, 3000),
-		new Point(20000, 21000),
-		new Point(3000, 4000),
-		new Point(14000, 15000),
-		new Point(6000, 7000),
+		new Point(1000, 17000),
+		new Point(14000, 24000),
+		new Point(26000, 8000),
+		new Point(10000, 28000),
+		new Point(18000, 5000),
+		new Point(1000, 27000),
+		new Point(14000, 14000),
+		new Point(11000, 16000),
+		new Point(29000, 17000),
+		new Point(5000, 21000),
+		new Point(19000, 26000),
+		new Point(28000, 21000),
+		new Point(25000, 24000),
+		new Point(30000, 10000),
+		new Point(25000, 14000),
+		new Point(31000, 16000),
+		new Point(5000, 12000),
+		new Point(1000, 31000),
+		new Point(2000, 24000),
+		new Point(13000, 17000),
+		new Point(1000, 28000),
+		new Point(14000, 16000),
+		new Point(26000, 26000),
+		new Point(10000, 31000),
+		new Point(12000, 4000),
+		new Point(9000, 24000),
+		new Point(28000, 29000),
+		new Point(12000, 20000),
+		new Point(13000, 11000),
+		new Point(4000, 26000),
+		new Point(8000, 10000),
+		new Point(15000, 12000),
+		new Point(22000, 29000),
+		new Point(7000, 15000),
+		new Point(10000, 4000),
+		new Point(2000, 29000),
+		new Point(17000, 17000),
+		new Point(3000, 15000),
+		new Point(4000, 29000),
+		new Point(19000, 2000),
 	];
 
 	// biome-ignore lint/complexity/useArrowFunction: <explanation>
@@ -289,14 +316,14 @@ const sketch = function (p: p5) {
 		for (const point of points) {
 			point.draw();
 		}
-
+		//fast collinear
 		const collinear = new FastCollinearPoints(points);
-		const collinear2 = new BruteCollinearPoints(points);
-
 		for (const segment of collinear.segments()) {
 			console.log(segment.toString());
 			segment.draw();
 		}
+		//brute collinear
+		const collinear2 = new BruteCollinearPoints(points);
 		for (const segment of collinear2.segments()) {
 			console.log(segment.toString());
 			segment.draw();
