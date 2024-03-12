@@ -271,23 +271,20 @@ const sketch = function (p: p5) {
 
 	// from input6.txt
 	const points: Point[] = [
-		new Point(19000, 10000),
-		new Point(18000, 10000),
-		new Point(32000, 10000),
-		new Point(21000, 10000),
-		new Point(1234, 5678),
-		new Point(14000, 10000),
+		new Point(10000, 0),
+		new Point(0, 10000),
+		new Point(3000, 7000),
+		new Point(7000, 3000),
+		new Point(20000, 21000),
+		new Point(3000, 4000),
+		new Point(14000, 15000),
+		new Point(6000, 7000),
 	];
 
+	// biome-ignore lint/complexity/useArrowFunction: <explanation>
 	p.draw = function () {
 		p.translate(padding, height - padding);
 		p.scale(1 / 100, -1 / 100);
-
-		// Call your draw and drawTo here.
-
-		// point.draw();
-		// point2.draw();
-		// point.drawTo(point2);
 
 		for (const point of points) {
 			point.draw();
@@ -295,6 +292,7 @@ const sketch = function (p: p5) {
 
 		const collinear = new FastCollinearPoints(points);
 		const collinear2 = new BruteCollinearPoints(points);
+
 		for (const segment of collinear.segments()) {
 			console.log(segment.toString());
 			segment.draw();
