@@ -1,8 +1,8 @@
-import Point from "./Point";
+import Point from "./point";
 import LineSegment from "./LineSegment";
 import { mergeSort } from "./sorting";
 
-export default class FastCollinearPoints {
+class FastCollinearPoints {
 	points: Point[];
 	lineSegments: LineSegment[];
 
@@ -25,13 +25,10 @@ export default class FastCollinearPoints {
 		return this.lineSegments;
 	}
 
-	findCollinearPoints(): void {
+	private findCollinearPoints(): void {
 		for (const p of this.points) {
 			const otherPoints = this.points.filter((q) => q !== p);
-			const sortedPoints = mergeSort(
-				otherPoints,
-				(p1, p2) => p.slopeTo(p1) - p.slopeTo(p2),
-			);
+			const sortedPoints = mergeSort(otherPoints, p);
 
 			let start = 0;
 			while (start < sortedPoints.length) {
@@ -45,7 +42,7 @@ export default class FastCollinearPoints {
 
 				if (
 					end - start >= 3 &&
-					p.slopeTo(sortedPoints[start]) !== Double.NEGATIVE_INFINITY
+					p.slopeTo(sortedPoints[start]) !== Number.NEGATIVE_INFINITY
 				) {
 					this.lineSegments.push(new LineSegment(p, sortedPoints[end - 1]));
 				}
@@ -55,3 +52,5 @@ export default class FastCollinearPoints {
 		}
 	}
 }
+
+export default FastCollinearPoints;

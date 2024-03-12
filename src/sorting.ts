@@ -1,4 +1,4 @@
-import Point from "./Point";
+import Point from "./point";
 
 function mergeSort(points: Point[], origin: Point): Point[] {
 	if (points.length <= 1) {

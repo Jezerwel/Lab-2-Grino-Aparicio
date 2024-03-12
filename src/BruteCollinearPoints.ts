@@ -1,7 +1,7 @@
-import Point from "./Point";
+import Point from "./point";
 import LineSegment from "./LineSegment";
 
-export default class BruteCollinearPoints {
+class BruteCollinearPoints {
 	points: Point[];
 	lineSegments: LineSegment[];
 
@@ -24,7 +24,7 @@ export default class BruteCollinearPoints {
 		return this.lineSegments;
 	}
 
-	findCollinearPoints(): void {
+	private findCollinearPoints(): void {
 		for (let i = 0; i < this.points.length - 3; i++) {
 			for (let j = i + 1; j < this.points.length - 2; j++) {
 				for (let k = j + 1; k < this.points.length - 1; k++) {
@@ -46,3 +46,5 @@ export default class BruteCollinearPoints {
 		}
 	}
 }
+
+export default BruteCollinearPoints;

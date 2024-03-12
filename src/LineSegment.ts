@@ -1,6 +1,7 @@
-import Point from "./Point";
+import * as p5 from "p5";
+import Point from "./point";
 
-export default class LineSegment {
+class LineSegment {
 	p: Point;
 	q: Point;
 
@@ -9,9 +10,11 @@ export default class LineSegment {
 		this.q = q;
 	}
 
-	draw(): void {
-		stroke("black");
-		strokeWeight(2);
-		line(this.p.x, this.p.y, this.q.x, this.q.y);
+	draw(p: p5): void {
+		p.stroke("black");
+		p.strokeWeight(2);
+		p.line(this.p.x, this.p.y, this.q.x, this.q.y);
 	}
 }
+
+export default LineSegment;

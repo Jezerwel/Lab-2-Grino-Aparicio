@@ -1,11 +1,11 @@
-import Point from "../src/Point";
+import Point from "./point";
 import fs from "fs";
 import path from "path";
 
 function readPointsFromFile(filePath: string): Point[] {
 	const points: Point[] = [];
 	const fileContents = fs.readFileSync(
-		path.join(__dirname, "..", "data", filePath),
+		path.join(__dirname, "..", "..", "data", filePath),
 		"utf8",
 	);
 	const lines = fileContents.trim().split("\n");
