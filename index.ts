@@ -1,5 +1,4 @@
 import p5 from "p5";
-import readPointsFromFile from "./readFIle";
 
 const width: number = 800;
 const height: number = 500;
@@ -110,6 +109,7 @@ const sketch = function (p: p5) {
 			return `${this.p} -> ${this.q}`;
 		}
 	}
+
 	function mergeSort(points: Point[], origin: Point): Point[] {
 		if (points.length <= 1) {
 			return points;
